@@ -1,0 +1,11 @@
+{
+  "name": "proxy-cli",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "NODE_OPTIONS=--trace-warnings node src/index.js"
+  },
+  "dependencies": {}
+}
