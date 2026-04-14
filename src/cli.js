@@ -3,6 +3,7 @@ import { state } from './state.js';
 import { clear, pad, fmtMs } from './util.js';
 import { activeIncoming, activeOutgoing, totalIncoming, totalOutgoing } from './connTracker.js';
 
+/** Draw the full-screen TUI dashboard with current state, metrics, and hotkey legend. */
 function menu() {
   const header = ' Forward Proxy (CLI Control) ';
   const st = state.blockTraffic ? 'BLOCKED' : 'OPEN';
@@ -31,9 +32,15 @@ function menu() {
   console.log(`└${'─'.repeat(110)}┘`);
 }
 
+/** Trigger an immediate menu redraw. */
 export function renderMenu() { menu(); }
 
+/**
+ * Bind keyboard hotkeys to state mutations.
+ * Re-renders the menu on every state change event.
+ */
 export function wireKeyboard() {
+  // Redraw whenever state changes (from any source: keyboard, admin API, etc.)
   state.on('change', () => menu());
 
   if (process.stdin.isTTY) {
@@ -43,6 +50,7 @@ export function wireKeyboard() {
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
 
+  /** Map a single keypress sequence to the corresponding state action. */
   const handle = (seq) => {
     if (seq === '\u0003') { process.emit('SIGINT'); return; } // Ctrl+C
     const k = (seq || '').toLowerCase();
@@ -67,12 +75,14 @@ export function wireKeyboard() {
     }
   };
 
+  // Primary handler when raw mode is available (TTY)
   process.stdin.on('keypress', (_, key) => {
     if (!key) return;
     if (key.ctrl && key.name === 'c') { process.emit('SIGINT'); return; }
     if (key.sequence) handle(key.sequence);
   });
 
+  // Fallback: handle each character in raw data chunks (non-TTY)
   process.stdin.on('data', (chunk) => {
     for (const ch of chunk) handle(ch);
   });

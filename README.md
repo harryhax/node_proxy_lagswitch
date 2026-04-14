@@ -1,6 +1,8 @@
 # proxy-cli (modular)
 
-Forward proxy with:
+A Node.js "lag switch" proxy. Route traffic through it, then toggle blocking via hotkeys or REST API. Stall connections for a set duration or indefinitely, return 503s, or mass-drop active sockets. Control scope (new vs all), adjust stall timing live, and monitor connection metrics—all from an interactive CLI.
+
+## Features
 - CLI menu & hotkeys
 - Block **Mode**: STALL (hold) / STATUS (503)
 - Block **Scope**: NEW (only new conns) / ALL (new + drop existing)

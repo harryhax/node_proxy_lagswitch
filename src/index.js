@@ -1,3 +1,7 @@
+/**
+ * Entry point – parse the PORT env var, boot the server,
+ * then render the interactive CLI and bind hotkeys.
+ */
 import { startServer } from './server.js';
 import { renderMenu, wireKeyboard } from './cli.js';
 import { state } from './state.js';
