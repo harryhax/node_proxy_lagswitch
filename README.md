@@ -33,3 +33,11 @@ GET /_/stall?ms=3000  -> set
 GET /_/metrics
 GET /_/drop           -> immediate mass drop
 ```
+
+## Author
+
+**Harry Scanlan** · [HarryHax](https://harryhax.com) · [me@harryhax.com](mailto:me@harryhax.com)
+
+## License
+
+[MIT](LICENSE)
